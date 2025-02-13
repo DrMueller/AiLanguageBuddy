@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+	<ImplicitUsings>enable</ImplicitUsings>
+	<Nullable>enable</Nullable>
+	<PackAsTool>true</PackAsTool>
+	<ToolCommandName>ailanguagebuddy</ToolCommandName>
+	<PackageOutputPath>./nupkg</PackageOutputPath>
+	<Company>DrMueller</Company>
+	<Product>AILanguageBuddy</Product>
+	<Authors>DrMueller</Authors>
+	<Description>DrMuellers little AI Language Buddy</Description>
+	<PackageProjectUrl>https://github.com/DrMueller/NuGetLicenceBuddy</PackageProjectUrl>
+	<PackageIcon>M.png</PackageIcon>
+	<RepositoryUrl>https://github.com/DrMueller/NuGetLicenceBuddy</RepositoryUrl>
+	<RepositoryType></RepositoryType>
+	<PackageLicenseUrl></PackageLicenseUrl>
+	<AssemblyVersion Condition="'$(BUILD_BUILDNUMBER)' != '' ">$(BUILD_BUILDNUMBER)</AssemblyVersion>
+	<FileVersion Condition="'$(BUILD_BUILDNUMBER)' != '' ">$(BUILD_BUILDNUMBER)</FileVersion>
+	<Version Condition="'$(BUILD_BUILDNUMBER)' != '' ">$(BUILD_BUILDNUMBER)</Version>
+	<AssemblyVersion Condition="'$(BUILD_BUILDNUMBER)' == '' ">1.0.0.0</AssemblyVersion>
+	<PackageId>AILanguageBuddy</PackageId>
+	<UserSecretsId>5d382eaf-6d5e-43c4-871b-903bd5e5387c</UserSecretsId>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<None Include="Infrastructure\Assets\M.png" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Azure.AI.DocumentIntelligence" Version="1.0.0" />
+		<PackageReference Include="CommandLineParser" Version="2.9.1" />
+		<PackageReference Include="JetBrains.Annotations" Version="2024.3.0" />
+		<PackageReference Include="Lamar" Version="14.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="System.IO.Abstractions" Version="21.3.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Areas\FileToText\Models\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="appsettings.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+	
+</Project>
