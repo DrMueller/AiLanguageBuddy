@@ -20,7 +20,7 @@ namespace Mmu.AiLanguageBuddy.Areas.Labels.Labeling.Services.Servants.Implementa
                     .SelectMany(f => f.Labels)
                     .Select(label => new Label
                     {
-                        Category = label.LabelName,
+                        Category = label.CategoryName,
                         Length = label.Length,
                         Offset = label.Offset
                     })

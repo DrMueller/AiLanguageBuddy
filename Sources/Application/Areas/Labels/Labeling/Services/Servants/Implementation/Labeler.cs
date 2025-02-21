@@ -22,27 +22,6 @@ namespace Mmu.AiLanguageBuddy.Areas.Labels.Labeling.Services.Servants.Implementa
             return Task.FromResult(labelingResult);
         }
 
-        private static List<FoundLabel> RemoveOverlappingEntities(List<FoundLabel> labels)
-        {
-            labels.Sort((a, b) => a.Offset.CompareTo(b.Offset));
-
-            var filteredList = new List<FoundLabel>();
-            var lastEndOffset = -1;
-
-            foreach (var label in labels)
-            {
-                var entityEnd = label.Offset + label.Length;
-
-                if (label.Offset >= lastEndOffset)
-                {
-                    filteredList.Add(label);
-                    lastEndOffset = entityEnd;
-                }
-            }
-
-            return filteredList;
-        }
-
         private FoundDocumentEntities FindEntities(string filePath, EntityConfiguration config)
         {
             var entities = new List<FoundEntity>();
@@ -61,14 +40,20 @@ namespace Mmu.AiLanguageBuddy.Areas.Labels.Labeling.Services.Servants.Implementa
                     {
                         foundLabels.Add(new FoundLabel(
                             configEntry.EntityName,
+                            match.ToString(),
                             match.Index,
                             match.Length));
                     }
                 }
 
-                foundLabels = RemoveOverlappingEntities(foundLabels);
                 entities.Add(new FoundEntity(configEntry.EntityName, foundLabels));
             }
+
+            var allLabels = entities
+                .SelectMany(f => f.Labels)
+                .ToList();
+
+            entities.ForEach(e => e.RemoveDuplicates(allLabels));
 
             return new FoundDocumentEntities(
                 filePath,
